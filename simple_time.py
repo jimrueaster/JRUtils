@@ -3,6 +3,7 @@
 # Author: JimruEaster<jimru@qq.com>
 
 import datetime as dt
+import time
 
 
 def is_valid_datetime(date_str, fmt):
@@ -28,3 +29,26 @@ def validate_datetime(date_str, fmt):
     """
     if not is_valid_datetime(date_str, fmt):
         raise ValueError("Incorrect data format, should be " + fmt)
+
+
+def compare_datetime(datetime1, fmt1, datetime2, fmt2):
+    """
+    比较两个日期
+    :param datetime1: 日期1
+    :param fmt1: 格式1
+    :param datetime2: 日期2
+    :param fmt2: 格式2
+    :return: int
+    """
+    validate_datetime(datetime1, fmt1)
+    validate_datetime(datetime2, fmt2)
+
+    t1 = time.strptime(datetime1, fmt1)
+    t2 = time.strptime(datetime2, fmt2)
+
+    if t1 < t2:
+        return -1
+    if t1 == t2:
+        return 0
+    if t1 > t2:
+        return 1
