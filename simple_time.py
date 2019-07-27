@@ -17,3 +17,14 @@ def is_valid_datetime(date_str, fmt):
         return True
     except ValueError:
         return False
+
+
+def validate_datetime(date_str, fmt):
+    """
+    验证日期
+    :param date_str: 日期字符串
+    :param fmt: 格式
+    :return:
+    """
+    if not is_valid_datetime(date_str, fmt):
+        raise ValueError("Incorrect data format, should be " + fmt)
