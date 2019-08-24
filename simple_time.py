@@ -52,3 +52,14 @@ def compare_datetime(datetime1, fmt1, datetime2, fmt2):
         return 0
     if t1 > t2:
         return 1
+
+
+def convert_format(s_datetime, s_from_fmt, s_to_fmt):
+    """
+    改变时间的格式
+    :param s_datetime: 时间字符串
+    :param s_from_fmt: 原本格式
+    :param s_to_fmt:  目标格式
+    :return: string
+    """
+    return dt.datetime.strptime(s_datetime, s_from_fmt).strftime(s_to_fmt)

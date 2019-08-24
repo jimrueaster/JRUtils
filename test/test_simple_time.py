@@ -25,3 +25,9 @@ class TestSimpleTime(unittest.TestCase):
                                                   '2019-10', '%Y-%m'), 1)
         self.assertEqual(simple_time.compare_datetime('2019-11', '%Y-%m',
                                                   '2019-10-15', '%Y-%m-%d'), 1)
+
+    def test_convert_format(self):
+        self.assertEqual(simple_time.convert_format('2019-09-01', '%Y-%m-%d', '%Y-%m'), '2019-09')
+        self.assertEqual(simple_time.convert_format('2019-09-01', '%Y-%m-%d', '%m-%d'), '09-01')
+        self.assertEqual(simple_time.convert_format('2019-09', '%Y-%m', '%Y'), '2019')
+        self.assertEqual(simple_time.convert_format('2019-09', '%Y-%m', '%m-%d'), '09-01')
