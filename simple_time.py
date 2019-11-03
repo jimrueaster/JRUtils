@@ -3,6 +3,7 @@
 # Author: JimruEaster<jimru@qq.com>
 
 import datetime as dt
+import operator
 import time
 
 
@@ -63,3 +64,52 @@ def convert_format(s_datetime, s_from_fmt, s_to_fmt):
     :return: string
     """
     return dt.datetime.strptime(s_datetime, s_from_fmt).strftime(s_to_fmt)
+
+
+def _offset_time_delta(s_operator, s_datetime, s_from_fmt, d_delta, s_to_fmt):
+    """
+    获得偏移后的时间
+    :param string s_operator: 操作符
+    :param string s_datetime: 时间
+    :param string s_from_fmt: 时间格式
+    :param dict d_delta: 时间间隔
+    :param string s_to_fmt:
+    :return: string
+    """
+    time_tuple = dt.datetime.strptime(s_datetime, s_from_fmt)
+
+    days = d_delta.get('days', 0)
+    seconds = d_delta.get('seconds', 0)
+    microseconds = d_delta.get('microseconds', 0)
+    milliseconds = d_delta.get('milliseconds', 0)
+    minutes = d_delta.get('minutes', 0)
+    hours = d_delta.get('hours', 0)
+    weeks = d_delta.get('weeks', 0)
+
+    delta = dt.timedelta(days=days, seconds=seconds, microseconds=microseconds, milliseconds=milliseconds,
+                         minutes=minutes, hours=hours, weeks=weeks, )
+    return getattr(operator, s_operator)(time_tuple, delta).strftime(s_to_fmt)
+
+
+def sub_time_delta(s_datetime, s_from_fmt, d_delta, s_to_fmt):
+    """
+    减去一段时间后的时间
+    :param string s_datetime:
+    :param string s_from_fmt:
+    :param dict d_delta:
+    :param string s_to_fmt:
+    :return: string
+    """
+    return _offset_time_delta('sub', s_datetime, s_from_fmt, d_delta, s_to_fmt)
+
+
+def add_time_delta(s_datetime, s_from_fmt, d_delta, s_to_fmt):
+    """
+    增加一段时间后的时间
+    :param string s_datetime:
+    :param string s_from_fmt:
+    :param dict d_delta:
+    :param string s_to_fmt:
+    :return: string
+    """
+    return _offset_time_delta('add', s_datetime, s_from_fmt, d_delta, s_to_fmt)
